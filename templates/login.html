@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Login{% endblock %}
+
+
+{% block content %}
+<section class="card">
+<h1 class="title">Sign in</h1>
+<p class="subtitle">Log in to access your account (demo form — no backend verification).</p>
+
+
+<form method="POST" action="{{ url_for('login') }}" style="margin-top:16px;display:flex;flex-direction:column;gap:10px;max-width:420px;">
+<input name="username" type="text" placeholder="Username" required>
+<input name="password" type="password" placeholder="Password" required>
+<div style="display:flex;gap:10px;">
+<button class="btn primary" type="submit">Sign in</button>
+<a class="btn" href="{{ url_for('landing') }}">Back</a>
+</div>
+</form>
+
+
+<p class="empty" style="margin-top:12px">Note: For production use, integrate Flask-Login or another auth system.</p>
+</section>
+{% endblock %}

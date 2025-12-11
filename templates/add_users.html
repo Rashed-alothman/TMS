@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Users{% endblock %}
+
+{% block content %}
+  <section class="card">
+    <h1 class="title">Add Users to Account</h1>
+    <p class="subtitle">Create or invite users (placeholder form).</p>
+
+    <form method="POST" action="{{ url_for('add_users') }}" style="margin-top:16px;display:flex;flex-direction:column;gap:10px;max-width:520px;">
+      <input name="fullname" type="text" placeholder="Full name" required>
+      <input name="email" type="email" placeholder="Email address" required>
+      <select name="role" style="padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;">
+        <option value="member">Member</option>
+        <option value="admin">Admin</option>
+      </select>
+
+      <div style="display:flex;gap:10px;">
+        <button class="btn primary" type="submit">Add user</button>
+        <a class="btn" href="{{ url_for('home') }}">Back to Home</a>
+      </div>
+    </form>
+
+    <div style="margin-top:14px;">
+      <h3 style="margin:8px 0 6px">Invitations</h3>
+      <p class="empty">This page currently does not send real emails — implement server-side logic to persist users and send invites.</p>
+    </div>
+  </section>
+{% endblock %}

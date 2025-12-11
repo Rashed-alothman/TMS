@@ -1,8 +1,16 @@
-# First commant in the project.
-# Date: 10/12/2025--dd/mm/yyyy. 
+# Date: 11/12/2025--dd/mm/yyyy. 
 # Auther: Rashed Alothman.
-# I just want to say to myself i wish you the best.
+
+# --- ROUTE STRUCTURE YOU PROVIDED ---
+# "/" → landing/diagnostic page
+# "/home" → main dashboard
+# "/home/tasks/add_tasks" → add a task
+# "/home/task/delete_task" → delete a task
+# "/home/AddUsersToAccount" → placeholder
+# "/home/User/about" → about‑me page
+# "/login" → login page
 from flask import Flask ,request,render_template
+tasks = []
 app = Flask(__name__)
 @app.route("/")
 def wheretogo():

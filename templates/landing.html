@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Welcome — Diagnostic{% endblock %}
+
+
+{% block content %}
+<section class="card">
+<h1 class="title">Welcome</h1>
+<p class="subtitle">This is the landing / diagnostic page. If something went wrong, you can navigate to other pages from here.</p>
+
+
+<div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;">
+<a class="btn primary" href="{{ url_for('home') }}">Go to Home</a>
+<a class="btn" href="{{ url_for('login') }}">Login</a>
+<a class="btn" href="{{ url_for('about_me') }}">About</a>
+<a class="btn" href="{{ url_for('add_users') }}">Add Users</a>
+</div>
+
+
+<div style="margin-top:18px;color:var(--muted)">
+<p>If you see any errors when loading the app, check the terminal running Flask for stack traces. This page intentionally stays minimal so it can be used for quick diagnostics.</p>
+</div>
+</section>
+{% endblock %}
