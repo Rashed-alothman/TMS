@@ -34,12 +34,12 @@ def AddTasks():
     tasks.append(task)
     return {"message":"task addad","task":task},201
 
-@app.route("/home/task/delete_task",methods=["POST"])
+@app.route("/home/tasks/delete_task",methods=["DELETE"])
 def deleteTask():
     data=request.get_json()
     task_id=data.get("id")
     for task in tasks:
-        if task["id"] ==task_id:
+        if task["id"]==task_id:
             tasks.remove(task)
             break
 
