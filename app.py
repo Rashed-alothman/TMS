@@ -38,10 +38,13 @@ def AddTasks():
 def deleteTask():
     data=request.get_json()
     task_id=data.get("id")
-    for task in tasks:
-        if task["id"]==task_id:
-            tasks.remove(task)
-            break
+    if task_id == "":
+        print("Error: 1308")
+    else:
+        for task in tasks:
+            if task["id"]==task_id:
+                tasks.remove(task)
+                break
 
     return {"message": "Task deleted"}, 200
 
