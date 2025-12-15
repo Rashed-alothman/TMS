@@ -2,47 +2,70 @@ import requests
 
 BASE_URL = 'http://localhost:5000'
 
-# First, let's see what tasks exist
-print("Current tasks:")
-response = requests.get(f'{BASE_URL}/tasks')
-print(response.json())
-print()
+print("=== TESTING DELETE WITH VALIDATION ===\n")
 
-# Add a new task
-print("Adding a task...")
-response = requests.post(
-    f'{BASE_URL}/home/tasks/add_Tasks',
-    json={'description': 'Task to keep'}
-)
-print(response.json())
-print()
+# Test 1: Add some tasks first
+print("1. Adding tasks...")
+for i in range(1, 4):
+    response = requests.post(
+        f'{BASE_URL}/home/tasks/add_Tasks',
+        json={'description': f'Task {i}'}
+    )
+    print(f"   Added: {response.json()}")
 
-# Add another task
-print("Adding another task...")
-response = requests.post(
-    f'{BASE_URL}/home/tasks/add_Tasks',
-    json={'description': 'Task to delete'}
-)
-task_to_delete = response.json()['task']['id']
-print(response.json())
-print()
+# Test 2: View all tasks
+print("\n2. Current tasks:")
+response = requests.get(f'{BASE_URL}/home/tasks')
+all_tasks = response.json()['tasks']
+for task in all_tasks:
+    print(f"   ID {task['id']}: {task['description']}")
 
-# Check all tasks
-print("All tasks before delete:")
-response = requests.get(f'{BASE_URL}/tasks')
-print(response.json())
-print()
+# Test 3: Delete with valid ID
+if all_tasks:
+    valid_id = all_tasks[0]['id']
+    print(f"\n3. Deleting task with valid ID {valid_id}:")
+    response = requests.delete(
+        f'{BASE_URL}/home/tasks/delete_task',
+        json={'id': valid_id}
+    )
+    print(f"   Status: {response.status_code}")
+    print(f"   Response: {response.json()}")
 
-# Delete the second task
-print(f"Deleting task with ID {task_to_delete}...")
+# Test 4: Try to delete non-existent ID
+print("\n4. Trying to delete non-existent ID 9999:")
 response = requests.delete(
     f'{BASE_URL}/home/tasks/delete_task',
-    json={'id': task_to_delete}
+    json={'id': 9999}
 )
-print(response.json())
-print()
+print(f"   Status: {response.status_code}")
+print(f"   Response: {response.json()}")
 
-# Check remaining tasks
-print("Remaining tasks after delete:")
-response = requests.get(f'{BASE_URL}/tasks')
-print(response.json())
+# Test 5: Try to delete without ID
+print("\n5. Trying to delete without providing ID:")
+response = requests.delete(
+    f'{BASE_URL}/home/tasks/delete_task',
+    json={'description': 'something'}  # Wrong field, no 'id'
+)
+print(f"   Status: {response.status_code}")
+print(f"   Response: {response.json()}")
+
+# Test 6: Try to delete with no data at all
+print("\n6. Trying to delete with no JSON data:")
+response = requests.delete(
+    f'{BASE_URL}/home/tasks/delete_task'
+    # No json parameter at all
+)
+print(f"   Status: {response.status_code}")
+#print(f"   Response: {response.json()}")
+
+# Test 7: Final state
+print("\n7. Final remaining tasks:")
+response = requests.get(f'{BASE_URL}/home/tasks')
+remaining = response.json()['tasks']
+if remaining:
+    for task in remaining:
+        print(f"   ID {task['id']}: {task['description']}")
+else:
+    print("   No tasks remaining")
+
+print("\n=== ALL TESTS COMPLETE ===")

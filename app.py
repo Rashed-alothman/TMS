@@ -1,4 +1,4 @@
-# Date: 11/12/2025--dd/mm/yyyy. 
+# Date: 15/12/2025--dd/mm/yyyy. 
 # Auther: Rashed Alothman.
 
 # --- ROUTE STRUCTURE YOU PROVIDED ---
@@ -11,7 +11,7 @@
 # "/login" → login page
 from flask import Flask ,request,render_template
 tasks = []
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates', static_folder='static')
 @app.route("/")
 def wheretogo():
     return 0
@@ -19,7 +19,7 @@ def wheretogo():
 def helloWorld():
     return "<p> Hello World How the fuck are you!</p>"
 
-@app.route("/tasks", methods=["GET"])
+@app.route("/home/tasks", methods=["GET"])
 def get_tasks():
     return {'tasks': tasks}
 
@@ -37,16 +37,22 @@ def AddTasks():
 @app.route("/home/tasks/delete_task",methods=["DELETE"])
 def deleteTask():
     data=request.get_json()
+    if not data:
+        return ({"error":" No data Provided"}), 400
     task_id=data.get("id")
-    if task_id == "":
-        print("Error: 1308")
+    TaskHaveBeenDeleted = False
+    if not task_id:
+        return ({"error": "Task ID is requried"}), 400
     else:
         for task in tasks:
             if task["id"]==task_id:
                 tasks.remove(task)
+                TaskHaveBeenDeleted =True
                 break
-
-    return {"message": "Task deleted"}, 200
+    if TaskHaveBeenDeleted:
+        return ({"message":" Task deleted"}), 200
+    else:
+        return ({"message": "Task not found, no found"}), 404
 
 @app.route("/home/AddUsersToAccout")
 def addUsers(email):
