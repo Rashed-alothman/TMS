@@ -23,9 +23,6 @@ def landing():
 def homepage():
     return render_template('homepage.html', tasks=tasks)
 
-@app.route('/homepage/tasks', methods=['GET'])
-def get_tasks():
-    return {'Tasks': tasks}
 
 @app.route('/homepage/tasks/add_Tasks',methods=['POST'])
 def add_task_html():
@@ -38,7 +35,12 @@ def add_task_html():
         }
         tasks.append(new_task)
     
-    return redirect(url_for('home'))
+    return redirect(url_for('homepage'))
+
+
+@app.route('/homepage/api/tasks', methods=['GET'])
+def get_tasks():
+    return {'Tasks': tasks}
 
 @app.route('/homepage/api/tasks/add_Tasks',methods=['POST'])
 def add_task_api():
