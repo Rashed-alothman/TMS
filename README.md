@@ -1,3 +1,5 @@
+![CI Status](https://github.com/YOUR_USERNAME/TMS/workflows/TMS%20CI%20Pipeline/badge.svg)
+
 # TMS - Task Management System
 
 A flexible, lightweight task management system built with Python and Flask. Designed for personal productivity with a vision for collaborative team environments and seamless calendar integration.
