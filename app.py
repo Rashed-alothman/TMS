@@ -1,4 +1,4 @@
-# Date: 15/12/2025--dd/mm/yyyy. 
+# Date: 16/12/2025--dd/mm/yyyy. 
 # Auther: Rashed Alothman.
 
 # --- ROUTE STRUCTURE YOU PROVIDED ---
@@ -9,6 +9,7 @@
 # '/homepage/AddUsersToAccount' → placeholder
 # '/homepage/User/about' → about‑me page
 # '/login' → login page
+
 from datetime import datetime 
 from flask import Flask, request, render_template, redirect, url_for
 import uuid
@@ -37,6 +38,25 @@ def add_task_html():
     
     return redirect(url_for('homepage'))
 
+@app.route('/homepage/task/delete',methods=['POST'])
+def delete_task_html():
+    task_id =request.form.get('task.id')
+    
+    if not task_id:
+        return({'erorr':'No data Provided'}),404
+    
+    task_have_been_deleted = False
+    
+    for task in tasks:
+        if task['task.id'] == task_id:
+            tasks.remove(task)
+            task_have_been_deleted = True
+            break
+
+    if task_have_been_deleted:
+        return ({'message':' Task deleted'}), 200
+    else:
+        return ({'message': 'Task not found, no found'}), 404
 
 @app.route('/homepage/api/tasks', methods=['GET'])
 def get_tasks():
@@ -132,3 +152,7 @@ def login():
         else:
             error = 'Invalid username/password'
     return render_template('login.html', error=error)
+
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=5000)
