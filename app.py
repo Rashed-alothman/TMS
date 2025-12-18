@@ -40,23 +40,16 @@ def add_task_html():
 
 @app.route('/homepage/task/delete',methods=['POST'])
 def delete_task_html():
-    task_id =request.form.get('task.id')
+    task_id =request.form.get('task_id')
     
     if not task_id:
         return({'erorr':'No data Provided'}),404
     
-    task_have_been_deleted = False
-    
     for task in tasks:
-        if task['task.id'] == task_id:
+        if task['id'] == task_id:
             tasks.remove(task)
-            task_have_been_deleted = True
             break
-
-    if task_have_been_deleted:
-        return ({'message':' Task deleted'}), 200
-    else:
-        return ({'message': 'Task not found, no found'}), 404
+    return redirect(url_for('homepage'))
 
 @app.route('/homepage/api/tasks', methods=['GET'])
 def get_tasks():
