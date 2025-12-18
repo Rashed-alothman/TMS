@@ -30,7 +30,7 @@ failed = 0
 task_ids = []
 
 print(f"\n{BLUE}{'='*70}")
-print(f"TMS (Task Management System) - Complete API Test Suite")
+print("TMS (Task Management System) - Complete API Test Suite")
 print(f"{'='*70}{RESET}\n")
 
 # ============================================================================
@@ -338,7 +338,7 @@ except Exception as e:
 # TEST SUMMARY
 # ============================================================================
 print(f"\n{BLUE}{'='*70}")
-print(f"TEST SUMMARY")
+print("TEST SUMMARY")
 print(f"{'='*70}{RESET}")
 print(f"{GREEN}Passed: {passed}{RESET}")
 print(f"{RED}Failed: {failed}{RESET}")
@@ -346,11 +346,11 @@ print(f"Total:  {passed + failed}")
 
 if failed == 0:
     print(f"\n{GREEN}{'='*70}")
-    print(f"🎉 ALL TESTS PASSED! Your API is working perfectly!")
+    print(" ALL TESTS PASSED! Your API is working perfectly!")
     print(f"{'='*70}{RESET}\n")
     sys.exit(0)
 else:
     print(f"\n{RED}{'='*70}")
-    print(f"⚠️  Some tests failed. Review the errors above.")
+    print("Some tests failed. Review the errors above.")
     print(f"{'='*70}{RESET}\n")
     sys.exit(1)

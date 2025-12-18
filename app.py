@@ -78,63 +78,55 @@ def add_task_api():
     return {'message':'task added','task':task},201
 
 @app.route('/homepage/api/tasks/delete_task',methods=['DELETE'])
-def deleteTask():
+def delete_task():
     data=request.get_json()
     if not data:
         return ({'error':' No data Provided'}), 400
     task_id=data.get('id')
-    TaskHaveBeenDeleted = False
+    task_have_been_deleted = False
     if not task_id:
         return ({'error': 'Task ID is requried'}), 400
     else:
         for task in tasks:
             if task['id']==task_id:
                 tasks.remove(task)
-                TaskHaveBeenDeleted =True
+                task_have_been_deleted =True
                 break
-    if TaskHaveBeenDeleted:
+    if task_have_been_deleted:
         return ({'message':' Task deleted'}), 200
     else:
         return ({'message': 'Task not found, no found'}), 404
 
 @app.route('/homepage/api/tasks/updatedtask',methods=["PATCH"])
-def updatdTask():
-    data=request.get_json()
-    
-    task_id=data.get('id')
-    
-    taskhavebeenupdated=False
-    
-    Newdescription = data.get('description')
-    
-    completed=data.get('completed')
-    
-    found_task = None
+def updatd_task():
+    data = request.get_json()
     if not data:
         return {'error': 'Invalid or missing data'}, 400
+
+    task_id = data.get('id')
     if not task_id:
-        return ({'error': 'Task ID is requried'}), 400
-    else:
-        for task in tasks:
-            if task['id']==task_id:
-                if Newdescription is not None:
-                    task['description'] = Newdescription
-                if completed is not None:
-                    task['completed'] = completed
-                found_task = task
-                taskhavebeenupdated=True
-                break
-        if taskhavebeenupdated:
-            return {'message': 'The Task have been updated', 'task': found_task}, 200
-        else:
-            return({'message ':'The Task fail to update'}),404 
+        return {'error': 'Task ID is required'}, 400
+
+    new_description = data.get('description')
+    completed = data.get('completed')
+
+    for task in tasks:
+        if task.get('id') != task_id:
+            continue
+        if new_description is not None:
+            task['description'] = new_description
+        if completed is not None:
+            task['completed'] = completed
+        return {'message': 'The Task has been updated', 'task': task}, 200
+
+    return {'message': 'Task not found'}, 404
 
 @app.route('/homepage/AddUsersToAccout')
-def addUsers(email):
+def add_users(email):
     return 0
 
 @app.route('/homepage/User/about me')
-def aboutMe():
+def about_me():
     return 0
 
 
