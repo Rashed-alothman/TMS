@@ -85,7 +85,7 @@ if task_ids:
     try:
         update_id = task_ids[0]
         response = requests.patch(
-            f'{BASE_URL}/updatedtask',
+            f'{BASE_URL}/updated_task',
             json={
                 'id': update_id,
                 'description': 'Updated: Buy groceries and cook dinner'
@@ -114,7 +114,7 @@ if len(task_ids) > 1:
     try:
         complete_id = task_ids[1]
         response = requests.patch(
-            f'{BASE_URL}/updatedtask',
+            f'{BASE_URL}/updated_task',
             json={
                 'id': complete_id,
                 'completed': True
@@ -143,7 +143,7 @@ if len(task_ids) > 2:
     try:
         update_id = task_ids[2]
         response = requests.patch(
-            f'{BASE_URL}/updatedtask',
+            f'{BASE_URL}/updated_task',
             json={
                 'id': update_id,
                 'description': 'Completely updated task',
@@ -217,7 +217,7 @@ else:
 print_test_header(8, "Error Handling: Update Non-Existent Task")
 try:
     response = requests.patch(
-        f'{BASE_URL}/updatedtask',
+        f'{BASE_URL}/updated_task',
         json={
             'id': 'nonexistent-uuid-1234',
             'description': 'This should fail'
@@ -240,7 +240,7 @@ except Exception as e:
 print_test_header(9, "Error Handling: Update Without ID")
 try:
     response = requests.patch(
-        f'{BASE_URL}/updatedtask',
+        f'{BASE_URL}/updated_task',
         json={'description': 'No ID provided'}
     )
     if response.status_code == 400:
