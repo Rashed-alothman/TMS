@@ -131,7 +131,7 @@ TMS/
 
 ---
 
-## 🔧 Architecture Overview
+## Architecture Overview
 
 ### Current Tech Stack
 
