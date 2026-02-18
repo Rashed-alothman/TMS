@@ -1,92 +1,248 @@
-{% extends 'base.html' %}
-
-{% block title %}About - Task Master{% endblock %}
-
-{% block content %}
-<div class="card">
-  <div class="card-header">
-    <h1 class="card-title">About Task Master</h1>
-    <p class="card-subtitle">A modern task management system</p>
-  </div>
-
-  <div style="margin-bottom: 24px;">
-    <h2 style="font-size: 1.2rem; color: var(--text-main); margin: 0 0 12px 0;">What is Task Master?</h2>
-    <p style="color: var(--text-muted); line-height: 1.8; margin: 0;">
-      Task Master is a minimalist task management system built with Python Flask and modern web technologies. 
-      It's designed to help you stay focused on what matters by providing a simple, distraction-free interface 
-      for managing your daily tasks.
-    </p>
-  </div>
-
-  <div style="margin-bottom: 24px;">
-    <h2 style="font-size: 1.2rem; color: var(--text-main); margin: 0 0 12px 0;">Key Features</h2>
-    <div style="display: grid; gap: 12px;">
-      <div style="display: flex; gap: 12px;">
-        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" style="flex-shrink: 0; color: var(--success); margin-top: 2px;">
-          <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-        </svg>
-        <div>
-          <h3 style="margin: 0; font-size: 0.95rem; color: var(--text-main);">Add & Manage Tasks</h3>
-          <p style="margin: 4px 0 0 0; font-size: 0.9rem; color: var(--text-muted);">Quickly add tasks and manage them with ease</p>
-        </div>
-      </div>
-      <div style="display: flex; gap: 12px;">
-        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" style="flex-shrink: 0; color: var(--primary); margin-top: 2px;">
-          <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-        </svg>
-        <div>
-          <h3 style="margin: 0; font-size: 0.95rem; color: var(--text-main);">Track Progress</h3>
-          <p style="margin: 4px 0 0 0; font-size: 0.9rem; color: var(--text-muted);">Monitor completed and pending tasks at a glance</p>
-        </div>
-      </div>
-      <div style="display: flex; gap: 12px;">
-        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" style="flex-shrink: 0; color: var(--warning); margin-top: 2px;">
-          <path d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-        </svg>
-        <div>
-          <h3 style="margin: 0; font-size: 0.95rem; color: var(--text-main);">REST API</h3>
-          <p style="margin: 4px 0 0 0; font-size: 0.9rem; color: var(--text-muted);">Powerful API for third-party integrations</p>
-        </div>
-      </div>
+{% extends 'base.html' %} {% block title %}About — Task Master{% endblock %} {%
+block content %}
+<div
+    class="container"
+    style="padding-top: 60px; padding-bottom: 80px; max-width: 760px"
+>
+    <div class="animate-fade-up" style="margin-bottom: 48px">
+        <div class="hero-tag" style="margin-bottom: 20px">Project</div>
+        <h1
+            style="
+                font-family: var(--font-display);
+                font-size: 2.5rem;
+                font-weight: 800;
+                letter-spacing: -0.04em;
+                line-height: 1.1;
+                color: var(--text);
+                margin-bottom: 16px;
+            "
+        >
+            About Task<em style="font-style: normal; color: var(--amber)"
+                >Master</em
+            >
+        </h1>
+        <p
+            style="
+                color: var(--text-2);
+                font-size: 1rem;
+                line-height: 1.75;
+                font-weight: 300;
+            "
+        >
+            A lightweight task management system built with Python and Flask.
+            Designed as a real learning project — not a tutorial clone — with a
+            clear roadmap toward production-ready features.
+        </p>
     </div>
-  </div>
 
-  <div style="margin-bottom: 24px;">
-    <h2 style="font-size: 1.2rem; color: var(--text-main); margin: 0 0 12px 0;">Technology Stack</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px;">
-      <div style="padding: 12px; background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.2); border-radius: var(--radius); text-align: center;">
-        <p style="margin: 0; font-weight: 600; color: var(--primary);">Flask</p>
-        <p style="margin: 4px 0 0 0; font-size: 0.85rem; color: var(--text-muted);">Backend Framework</p>
-      </div>
-      <div style="padding: 12px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: var(--radius); text-align: center;">
-        <p style="margin: 0; font-weight: 600; color: var(--success);">SQLAlchemy</p>
-        <p style="margin: 4px 0 0 0; font-size: 0.85rem; color: var(--text-muted);">Database ORM</p>
-      </div>
-      <div style="padding: 12px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: var(--radius); text-align: center;">
-        <p style="margin: 0; font-weight: 600; color: var(--warning);">Modern CSS</p>
-        <p style="margin: 4px 0 0 0; font-size: 0.85rem; color: var(--text-muted);">Responsive Design</p>
-      </div>
-      <div style="padding: 12px; background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.2); border-radius: var(--radius); text-align: center;">
-        <p style="margin: 0; font-weight: 600; color: var(--primary);">JavaScript</p>
-        <p style="margin: 4px 0 0 0; font-size: 0.85rem; color: var(--text-muted);">Vanilla JS</p>
-      </div>
+    <div class="divider"></div>
+
+    <!-- Author -->
+    <div class="animate-fade-up-1" style="margin-bottom: 48px">
+        <div class="section-label">Author</div>
+        <div
+            style="
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                margin-top: 16px;
+            "
+        >
+            <div
+                style="
+                    width: 56px;
+                    height: 56px;
+                    border-radius: 50%;
+                    background: var(--amber-dim);
+                    border: 2px solid var(--amber-glow);
+                    display: grid;
+                    place-items: center;
+                    flex-shrink: 0;
+                "
+            >
+                <svg
+                    width="24"
+                    height="24"
+                    fill="none"
+                    stroke="var(--amber)"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"
+                    />
+                </svg>
+            </div>
+            <div>
+                <div
+                    style="
+                        font-family: var(--font-display);
+                        font-weight: 700;
+                        font-size: 1.1rem;
+                        color: var(--text);
+                    "
+                >
+                    Rashed Alothman
+                </div>
+                <div
+                    style="
+                        color: var(--text-2);
+                        font-size: 0.875rem;
+                        margin-top: 2px;
+                    "
+                >
+                    Backend Developer · Fedora Linux · Started Dec 2025
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <div style="padding: 16px; background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.2); border-radius: var(--radius); margin-bottom: 24px;">
-    <h3 style="margin: 0 0 8px 0; color: var(--text-main);">Version Info</h3>
-    <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">
-      <strong>Task Master v1.0</strong> • Built by Rashed Alothman • © 2025
-    </p>
-  </div>
+    <!-- Current Features -->
+    <div class="animate-fade-up-2" style="margin-bottom: 48px">
+        <div class="section-label">What's built</div>
+        <div
+            style="
+                margin-top: 16px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            "
+        >
+            {% for feature in [ ('REST API', 'Full CRUD with GET, POST, PATCH,
+            DELETE endpoints'), ('Priority System', 'Four levels: low, medium,
+            high, urgent — with sorting'), ('Filtering', 'Filter tasks by
+            completion status and priority'), ('Error Handling', 'Proper
+            validation and meaningful error responses'), ('Modular Structure',
+            'Blueprints, Application Factory, separated layers'), ('SQLAlchemy
+            ORM', 'Clean model definitions with type-annotated columns'), ] %}
+            <div
+                style="
+                    display: flex;
+                    align-items: flex-start;
+                    gap: 14px;
+                    padding: 16px;
+                    background: var(--bg-1);
+                    border: 1px solid var(--border);
+                    border-radius: var(--radius-sm);
+                "
+            >
+                <div
+                    style="
+                        width: 8px;
+                        height: 8px;
+                        border-radius: 50%;
+                        background: var(--amber);
+                        margin-top: 7px;
+                        flex-shrink: 0;
+                    "
+                ></div>
+                <div>
+                    <div
+                        style="
+                            font-weight: 600;
+                            font-size: 0.9rem;
+                            color: var(--text);
+                            margin-bottom: 2px;
+                        "
+                    >
+                        {{ feature[0] }}
+                    </div>
+                    <div style="font-size: 0.85rem; color: var(--text-2)">
+                        {{ feature[1] }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 
-  <div style="text-align: center;">
-    <a class="btn primary" href="{{ url_for('homepage') }}">
-      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <path d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-      </svg>
-      Start Managing Tasks
-    </a>
-  </div>
+    <!-- Tech Stack -->
+    <div class="animate-fade-up-3" style="margin-bottom: 48px">
+        <div class="section-label">Technology Stack</div>
+        <div class="tech-grid" style="margin-top: 16px">
+            <div class="tech-pill">
+                <span class="tech-pill-dot"></span>Python 3.14
+            </div>
+            <div class="tech-pill">
+                <span class="tech-pill-dot"></span>Flask 3.1
+            </div>
+            <div class="tech-pill">
+                <span class="tech-pill-dot"></span>SQLAlchemy 2.0
+            </div>
+            <div class="tech-pill">
+                <span class="tech-pill-dot"></span>Flask-SQLAlchemy
+            </div>
+            <div class="tech-pill">
+                <span class="tech-pill-dot"></span>SQLite
+            </div>
+            <div class="tech-pill">
+                <span class="tech-pill-dot"></span>Vanilla JS
+            </div>
+            <div class="tech-pill">
+                <span class="tech-pill-dot"></span>Gunicorn
+            </div>
+            <div class="tech-pill">
+                <span class="tech-pill-dot"></span>Docker
+            </div>
+        </div>
+    </div>
+
+    <!-- Roadmap -->
+    <div class="animate-fade-up-4" style="margin-bottom: 48px">
+        <div class="section-label">Roadmap</div>
+        <div
+            style="
+                margin-top: 16px;
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+            "
+        >
+            {% for item in [ ('Q1 2026', 'User auth, Flask-Migrate, PostgreSQL,
+            full test suite', True), ('Q2 2026', 'Multi-user support, task
+            sharing, Docker deployment', False), ('Q3 2026', 'Calendar
+            integration, notifications, API docs', False), ('Q4 2026',
+            'Production release, mobile app, analytics', False), ] %}
+            <div
+                style="
+                    display: flex;
+                    gap: 20px;
+                    padding: 20px 0;
+                    border-bottom: 1px solid var(--border);
+                "
+            >
+                <div style="width: 80px; flex-shrink: 0">
+                    <span
+                        style="font-family: var(--font-display); font-size: 0.8rem; font-weight: 700; color: {% if item[2] %}var(--amber){% else %}var(--text-3){% endif %};"
+                        >{{ item[0] }}</span
+                    >
+                </div>
+                <div
+                    style="font-size: 0.875rem; color: {% if item[2] %}var(--text-2){% else %}var(--text-3){% endif %}; line-height: 1.6;"
+                >
+                    {{ item[1] }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="animate-fade-up-4" style="text-align: center">
+        <a
+            href="{{ url_for('pages.homepage') }}"
+            class="btn btn-primary"
+            style="padding: 14px 32px; font-size: 1rem"
+        >
+            <svg
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                viewBox="0 0 24 24"
+            >
+                <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            Open Dashboard
+        </a>
+    </div>
 </div>
 {% endblock %}

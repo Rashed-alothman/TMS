@@ -1,306 +1,430 @@
-{% extends 'base.html' %}
-
-{% block title %}Dashboard - Task Master{% endblock %}
-
+{% extends 'base.html' %} {% block title %}Dashboard — Task Master{% endblock %}
 {% block content %}
-<div class="card">
-  <div class="card-header">
-    <h1 class="card-title">My Tasks</h1>
-    <p class="card-subtitle">Stay organized and focused on what matters</p>
-  </div>
-
-  <!-- Stats Bar -->
-  <div class="stats-bar">
-    <div class="stat-item">
-      <div class="stat-value" id="total-count">0</div>
-      <div class="stat-label">Total Tasks</div>
+<div class="container" style="padding-top: 40px; padding-bottom: 60px">
+    <!-- Page header -->
+    <div style="margin-bottom: 32px" class="animate-fade-up">
+        <h1
+            style="
+                font-family: var(--font-display);
+                font-size: 1.8rem;
+                font-weight: 800;
+                letter-spacing: -0.03em;
+                color: var(--text);
+                margin-bottom: 4px;
+            "
+        >
+            My Tasks
+        </h1>
+        <p style="color: var(--text-2); font-size: 0.9rem; font-weight: 300">
+            Stay organized and focused on what matters.
+        </p>
     </div>
-    <div class="stat-item">
-      <div class="stat-value" id="pending-count">0</div>
-      <div class="stat-label">Pending</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-value" id="completed-count">0</div>
-      <div class="stat-label">Completed</div>
-    </div>
-  </div>
 
-  <!-- Alert Area -->
-  <div id="alert-container"></div>
-
-  <!-- Add Task Form -->
-  <div class="task-input-group">
-    <input 
-      type="text" 
-      id="task-input" 
-      placeholder="What needs to be done?" 
-      autocomplete="off"
-      autofocus
-    >
-    <button class="btn primary" id="add-btn" type="button">
-      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <path d="M12 4v16m8-8H4"></path>
-      </svg>
-      Add
-    </button>
-  </div>
-
-  <!-- Task List -->
-  <div id="task-container">
-    <div class="empty-state">
-      <svg class="empty-state-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-      </svg>
-      <h3 class="empty-state-title">No tasks yet</h3>
-      <p class="empty-state-text">Add a task above to get started!</p>
+    <!-- Stats -->
+    <div class="stats-bar animate-fade-up-1" style="margin-bottom: 24px">
+        <div class="stat-item">
+            <div class="stat-value" id="total-count">0</div>
+            <div class="stat-label">Total</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value" id="pending-count">0</div>
+            <div class="stat-label">Pending</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value" id="completed-count">0</div>
+            <div class="stat-label">Done</div>
+        </div>
     </div>
-  </div>
+
+    <!-- Main card -->
+    <div class="card animate-fade-up-2">
+        <div class="card-body" style="padding: 28px">
+            <!-- Alert area -->
+            <div
+                id="alert-container"
+                style="
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+                    margin-bottom: 0;
+                "
+            ></div>
+
+            <!-- Add task row -->
+            <div class="task-input-row" style="margin-bottom: 24px">
+                <input
+                    type="text"
+                    id="task-input"
+                    placeholder="What needs to be done?"
+                    autocomplete="off"
+                    autofocus
+                    maxlength="255"
+                />
+                <select class="priority-select" id="priority-select">
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                    <option value="urgent">Urgent</option>
+                </select>
+                <button class="btn btn-primary" id="add-btn" type="button">
+                    <svg
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        viewBox="0 0 24 24"
+                    >
+                        <path d="M12 4v16m8-8H4" />
+                    </svg>
+                    Add Task
+                </button>
+            </div>
+
+            <!-- Filter bar -->
+            <div
+                style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    flex-wrap: wrap;
+                    gap: 12px;
+                    margin-bottom: 20px;
+                "
+            >
+                <div class="filter-bar" id="filter-bar">
+                    <button class="filter-btn active" data-filter="all">
+                        All
+                    </button>
+                    <button class="filter-btn" data-filter="pending">
+                        Pending
+                    </button>
+                    <button class="filter-btn" data-filter="completed">
+                        Completed
+                    </button>
+                    <div
+                        style="
+                            width: 1px;
+                            height: 20px;
+                            background: var(--border);
+                            margin: 0 4px;
+                        "
+                    ></div>
+                    <button class="filter-btn" data-priority="urgent">
+                        🔴 Urgent
+                    </button>
+                    <button class="filter-btn" data-priority="high">
+                        🟡 High
+                    </button>
+                    <button class="filter-btn" data-priority="medium">
+                        🔵 Medium
+                    </button>
+                    <button class="filter-btn" data-priority="low">
+                        ⚪ Low
+                    </button>
+                </div>
+
+                <button
+                    class="btn btn-ghost btn-sm"
+                    id="clear-completed"
+                    style="display: none"
+                >
+                    Clear completed
+                </button>
+            </div>
+
+            <!-- Task list -->
+            <div id="task-container"></div>
+        </div>
+    </div>
 </div>
-{% endblock %}
-
-{% block scripts %}
+{% endblock %} {% block scripts %}
 <script>
-const API_BASE = '/homepage/api/tasks';
+    const API = "/homepage/api/tasks";
+    let allTasks = [];
+    let activeFilter = "all";
+    let activePriority = null;
 
-const taskInput = document.getElementById('task-input');
-const addBtn = document.getElementById('add-btn');
-const taskContainer = document.getElementById('task-container');
-const alertContainer = document.getElementById('alert-container');
+    // DOM refs
+    const taskInput = document.getElementById("task-input");
+    const prioritySel = document.getElementById("priority-select");
+    const addBtn = document.getElementById("add-btn");
+    const taskContainer = document.getElementById("task-container");
+    const alertBox = document.getElementById("alert-container");
+    const totalEl = document.getElementById("total-count");
+    const pendingEl = document.getElementById("pending-count");
+    const completedEl = document.getElementById("completed-count");
+    const clearBtn = document.getElementById("clear-completed");
+    const filterBar = document.getElementById("filter-bar");
 
-// Task counters
-const totalCount = document.getElementById('total-count');
-const pendingCount = document.getElementById('pending-count');
-const completedCount = document.getElementById('completed-count');
-
-let tasks = [];
-
-// Load tasks on page load
-document.addEventListener('DOMContentLoaded', loadTasks);
-
-// Add task on button click
-addBtn.addEventListener('click', addTask);
-
-// Add task on Enter key
-taskInput.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') addTask();
-});
-
-async function loadTasks() {
-  try {
-    const response = await fetch(`${API_BASE}`);
-    const data = await response.json();
-    tasks = data.Tasks || [];
-    renderTasks();
-    updateStats();
-  } catch (error) {
-    showAlert('Failed to load tasks', 'error');
-  }
-}
-
-async function addTask() {
-  const description = taskInput.value.trim();
-  
-  if (!description) {
-    showAlert('Please enter a task description', 'warning');
-    taskInput.focus();
-    return;
-  }
-
-  if (description.length > 255) {
-    showAlert('Task description is too long (max 255 characters)', 'warning');
-    return;
-  }
-
-  try {
-    addBtn.disabled = true;
-    const response = await fetch(`${API_BASE}/add_Tasks`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ description })
+    // ── Boot ──────────────────────────────────────────────────
+    document.addEventListener("DOMContentLoaded", loadTasks);
+    addBtn.addEventListener("click", addTask);
+    taskInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") addTask();
     });
 
-    if (!response.ok) {
-      throw new Error('Failed to add task');
-    }
+    // ── Filter buttons ────────────────────────────────────────
+    filterBar.addEventListener("click", (e) => {
+        const btn = e.target.closest(".filter-btn");
+        if (!btn) return;
 
-    const data = await response.json();
-    tasks.push(data.task);
-    taskInput.value = '';
-    renderTasks();
-    updateStats();
-    showAlert('Task added successfully!', 'success');
-    taskInput.focus();
-  } catch (error) {
-    showAlert('Error adding task', 'error');
-  } finally {
-    addBtn.disabled = false;
-  }
-}
-
-async function toggleTask(taskId) {
-  const task = tasks.find(t => t.id === taskId);
-  if (!task) return;
-
-  try {
-    const response = await fetch(`${API_BASE}/updated_task`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        id: taskId,
-        completed: !task.completed
-      })
+        if (btn.dataset.filter !== undefined) {
+            // Status filter
+            filterBar
+                .querySelectorAll("[data-filter]")
+                .forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+            activeFilter = btn.dataset.filter;
+        } else if (btn.dataset.priority !== undefined) {
+            // Priority filter (toggle)
+            if (activePriority === btn.dataset.priority) {
+                btn.classList.remove("active");
+                activePriority = null;
+            } else {
+                filterBar
+                    .querySelectorAll("[data-priority]")
+                    .forEach((b) => b.classList.remove("active"));
+                btn.classList.add("active");
+                activePriority = btn.dataset.priority;
+            }
+        }
+        renderTasks();
     });
 
-    if (!response.ok) {
-      throw new Error('Failed to update task');
-    }
+    // ── Clear completed ───────────────────────────────────────
+    clearBtn.addEventListener("click", async () => {
+        const completed = allTasks.filter((t) => t.completed);
+        if (!completed.length) return;
+        if (!confirm(`Delete ${completed.length} completed task(s)?`)) return;
 
-    task.completed = !task.completed;
-    renderTasks();
-    updateStats();
-  } catch (error) {
-    showAlert('Error updating task', 'error');
-  }
-}
-
-async function deleteTask(taskId) {
-  if (!confirm('Are you sure you want to delete this task?')) return;
-
-  try {
-    const response = await fetch(`${API_BASE}/delete_task`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ id: taskId })
+        for (const task of completed) {
+            await fetch(`${API}/delete_task`, {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id: task.id }),
+            });
+        }
+        allTasks = allTasks.filter((t) => !t.completed);
+        renderTasks();
+        updateStats();
+        showAlert(`Cleared ${completed.length} completed task(s)`, "success");
     });
 
-    if (!response.ok) {
-      throw new Error('Failed to delete task');
+    // ── Load ──────────────────────────────────────────────────
+    async function loadTasks() {
+        try {
+            const res = await fetch(API);
+            const data = await res.json();
+            allTasks = data.Tasks || [];
+            renderTasks();
+            updateStats();
+        } catch {
+            showAlert("Failed to load tasks", "error");
+        }
     }
 
-    tasks = tasks.filter(t => t.id !== taskId);
-    renderTasks();
-    updateStats();
-    showAlert('Task deleted', 'success');
-  } catch (error) {
-    showAlert('Error deleting task', 'error');
-  }
-}
+    // ── Add ───────────────────────────────────────────────────
+    async function addTask() {
+        const desc = taskInput.value.trim();
+        if (!desc) {
+            showAlert("Please enter a task description", "warning");
+            taskInput.focus();
+            return;
+        }
+        if (desc.length > 255) {
+            showAlert("Description too long (max 255 characters)", "warning");
+            return;
+        }
 
-function renderTasks() {
-  if (tasks.length === 0) {
-    taskContainer.innerHTML = `
+        addBtn.disabled = true;
+        try {
+            const res = await fetch(`${API}/add_tasks`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    description: desc,
+                    priority: prioritySel.value,
+                }),
+            });
+
+            if (!res.ok) throw new Error();
+            const data = await res.json();
+            allTasks.unshift(data.task);
+            taskInput.value = "";
+            renderTasks();
+            updateStats();
+            showAlert("Task added!", "success");
+            taskInput.focus();
+        } catch {
+            showAlert("Error adding task", "error");
+        } finally {
+            addBtn.disabled = false;
+        }
+    }
+
+    // ── Toggle ────────────────────────────────────────────────
+    async function toggleTask(id) {
+        const task = allTasks.find((t) => t.id === id);
+        if (!task) return;
+
+        try {
+            const res = await fetch(`${API}/update_task`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id, completed: !task.completed }),
+            });
+            if (!res.ok) throw new Error();
+            task.completed = !task.completed;
+            renderTasks();
+            updateStats();
+        } catch {
+            showAlert("Error updating task", "error");
+        }
+    }
+
+    // ── Delete ────────────────────────────────────────────────
+    async function deleteTask(id) {
+        if (!confirm("Delete this task?")) return;
+        try {
+            const res = await fetch(`${API}/delete_task`, {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id }),
+            });
+            if (!res.ok) throw new Error();
+            allTasks = allTasks.filter((t) => t.id !== id);
+            renderTasks();
+            updateStats();
+            showAlert("Task deleted", "success");
+        } catch {
+            showAlert("Error deleting task", "error");
+        }
+    }
+
+    // ── Render ────────────────────────────────────────────────
+    function renderTasks() {
+        let tasks = [...allTasks];
+
+        if (activeFilter === "pending")
+            tasks = tasks.filter((t) => !t.completed);
+        if (activeFilter === "completed")
+            tasks = tasks.filter((t) => t.completed);
+        if (activePriority)
+            tasks = tasks.filter((t) => t.priority === activePriority);
+
+        // Show/hide clear button
+        clearBtn.style.display = allTasks.some((t) => t.completed)
+            ? ""
+            : "none";
+
+        if (!tasks.length) {
+            taskContainer.innerHTML = `
       <div class="empty-state">
         <svg class="empty-state-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-          <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
         </svg>
-        <h3 class="empty-state-title">No tasks yet</h3>
-        <p class="empty-state-text">Add a task above to get started!</p>
-      </div>
-    `;
-    return;
-  }
+        <div class="empty-state-title">${allTasks.length ? "No tasks match this filter" : "No tasks yet"}</div>
+        <div class="empty-state-text">${allTasks.length ? "Try a different filter." : "Add your first task above to get started."}</div>
+      </div>`;
+            return;
+        }
 
-  const taskList = document.createElement('div');
-  taskList.className = 'task-list';
+        const list = document.createElement("div");
+        list.className = "task-list";
 
-  tasks.forEach(task => {
-    const taskEl = document.createElement('div');
-    taskEl.className = `task-item ${task.completed ? 'completed' : ''}`;
-    
-    taskEl.innerHTML = `
+        tasks.forEach((task) => {
+            const el = document.createElement("div");
+            el.className = `task-item ${task.completed ? "completed" : ""}`;
+
+            const priorityMap = {
+                urgent: "badge-urgent",
+                high: "badge-high",
+                medium: "badge-medium",
+                low: "badge-low",
+            };
+
+            const dateStr = task["Due Date"]
+                ? new Date(task["Due Date"]).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                  })
+                : "";
+
+            el.innerHTML = `
+      <button class="task-check ${task.completed ? "checked" : ""}" onclick="toggleTask('${task.id}')" title="Toggle complete">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+          <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
       <div class="task-content">
-        <div class="task-checkbox">
-          <input 
-            type="checkbox" 
-            ${task.completed ? 'checked' : ''}
-            onchange="toggleTask('${task.id}')"
-          >
-          <svg fill="currentColor" viewBox="0 0 24 24" style="position: absolute; width: 12px; height: 12px; pointer-events: none;">
-            <path d="M20 6L9 17l-5-5"></path>
-          </svg>
+        <span class="task-text">${escHtml(task.description)}</span>
+        <div class="task-meta">
+          <span class="badge ${priorityMap[task.priority] || "badge-low"}">${task.priority}</span>
+          ${dateStr ? `<span class="task-date">${dateStr}</span>` : ""}
         </div>
-        <span class="task-text">${escapeHtml(task.description)}</span>
       </div>
       <div class="task-actions">
-        <button class="btn danger small" onclick="deleteTask('${task.id}')" title="Delete task">
+        <button class="btn btn-icon btn-sm" onclick="deleteTask('${task.id}')" title="Delete">
           <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+            <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
           </svg>
         </button>
-      </div>
-    `;
-    
-    taskList.appendChild(taskEl);
-  });
+      </div>`;
 
-  taskContainer.innerHTML = '';
-  taskContainer.appendChild(taskList);
-}
+            list.appendChild(el);
+        });
 
-function updateStats() {
-  const total = tasks.length;
-  const completed = tasks.filter(t => t.completed).length;
-  const pending = total - completed;
-
-  totalCount.textContent = total;
-  completedCount.textContent = completed;
-  pendingCount.textContent = pending;
-}
-
-function showAlert(message, type = 'info') {
-  const alert = document.createElement('div');
-  alert.className = `alert ${type}`;
-  
-  const iconSvg = {
-    success: '<path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>',
-    error: '<path d="M12 8v4m0 4v.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>',
-    warning: '<path d="M12 9v2m0 4v2m1-17H11a2 2 0 00-2 2v2H6a2 2 0 00-2 2v11a2 2 0 002 2h12a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2z"></path>',
-    info: '<path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>'
-  };
-
-  alert.innerHTML = `
-    <svg class="alert-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-      ${iconSvg[type]}
-    </svg>
-    <span>${message}</span>
-  `;
-
-  alertContainer.appendChild(alert);
-
-  // Auto remove after 4 seconds
-  setTimeout(() => {
-    alert.style.animation = 'fadeOut 0.3s ease-out';
-    setTimeout(() => alert.remove(), 300);
-  }, 4000);
-}
-
-function escapeHtml(text) {
-  const map = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#039;'
-  };
-  return text.replace(/[&<>"']/g, m => map[m]);
-}
-
-// Add fade out animation
-const style = document.createElement('style');
-style.textContent = `
-  @keyframes fadeOut {
-    to {
-      opacity: 0;
-      transform: translateY(-10px);
+        taskContainer.innerHTML = "";
+        taskContainer.appendChild(list);
     }
-  }
-`;
-document.head.appendChild(style);
+
+    // ── Stats ─────────────────────────────────────────────────
+    function updateStats() {
+        const total = allTasks.length;
+        const completed = allTasks.filter((t) => t.completed).length;
+        totalEl.textContent = total;
+        pendingEl.textContent = total - completed;
+        completedEl.textContent = completed;
+    }
+
+    // ── Alert ─────────────────────────────────────────────────
+    function showAlert(msg, type = "info") {
+        const icons = {
+            success:
+                '<path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>',
+            error: '<path d="M12 8v4m0 4v.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>',
+            warning:
+                '<path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>',
+        };
+
+        const a = document.createElement("div");
+        a.className = `alert alert-${type}`;
+        a.style.marginBottom = "16px";
+        a.innerHTML = `
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="16" height="16">
+      ${icons[type] || icons.success}
+    </svg>
+    <span>${msg}</span>`;
+
+        alertBox.appendChild(a);
+        setTimeout(() => {
+            a.style.animation = "fadeOut 0.3s var(--ease) both";
+            setTimeout(() => a.remove(), 300);
+        }, 3500);
+    }
+
+    // ── Utils ─────────────────────────────────────────────────
+    function escHtml(t) {
+        return t.replace(
+            /[&<>"']/g,
+            (c) =>
+                ({
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': "&quot;",
+                    "'": "&#039;",
+                })[c],
+        );
+    }
 </script>
 {% endblock %}

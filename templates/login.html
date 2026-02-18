@@ -1,32 +1,175 @@
-{% extends 'base.html' %}
-
-{% block title %}Login - Task Master{% endblock %}
-
+{% extends 'base.html' %} {% block title %}Sign In — Task Master{% endblock %}
 {% block content %}
-<div class="card">
-  <div class="card-header">
-    <h1 class="card-title">Welcome Back</h1>
-    <p class="card-subtitle">Sign in to manage your tasks</p>
-  </div>
+<div
+    style="
+        min-height: calc(100vh - 64px - 73px);
+        display: grid;
+        place-items: center;
+        padding: 40px 24px;
+    "
+>
+    <div style="width: 100%; max-width: 400px">
+        <!-- Logo mark -->
+        <div
+            style="text-align: center; margin-bottom: 32px"
+            class="animate-fade-up"
+        >
+            <div
+                style="
+                    width: 56px;
+                    height: 56px;
+                    background: var(--amber-dim);
+                    border: 1px solid var(--amber-glow);
+                    border-radius: var(--radius);
+                    display: grid;
+                    place-items: center;
+                    margin: 0 auto 16px;
+                    box-shadow: var(--shadow-amber);
+                "
+            >
+                <svg
+                    width="26"
+                    height="26"
+                    fill="none"
+                    stroke="var(--amber)"
+                    stroke-width="2.5"
+                    viewBox="0 0 24 24"
+                >
+                    <path d="M9 12l2 2 4-4" />
+                    <circle cx="12" cy="12" r="10" />
+                </svg>
+            </div>
+            <h1
+                style="
+                    font-family: var(--font-display);
+                    font-size: 1.5rem;
+                    font-weight: 800;
+                    letter-spacing: -0.02em;
+                    color: var(--text);
+                    margin-bottom: 6px;
+                "
+            >
+                Welcome back
+            </h1>
+            <p
+                style="
+                    color: var(--text-2);
+                    font-size: 0.875rem;
+                    font-weight: 300;
+                "
+            >
+                Sign in to manage your tasks
+            </p>
+        </div>
 
-  <form method="POST" class="form-group">
-    <div class="form-group">
-      <label class="form-label">Username</label>
-      <input type="text" name="username" placeholder="Enter your username" required autofocus>
+        <!-- Card -->
+        <div class="card animate-fade-up-1" style="padding: 32px">
+            <!-- Flash messages area -->
+            <div id="flash-messages"></div>
+
+            <form method="POST" class="form-group" id="loginForm">
+                <div class="form-field">
+                    <label class="form-label">Username</label>
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="your_username"
+                        required
+                        autocomplete="username"
+                        autofocus
+                    />
+                </div>
+
+                <div class="form-field">
+                    <label class="form-label">Password</label>
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="••••••••"
+                        required
+                        autocomplete="current-password"
+                    />
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    style="
+                        width: 100%;
+                        padding: 13px;
+                        font-size: 0.95rem;
+                        margin-top: 4px;
+                    "
+                >
+                    Sign In
+                    <svg
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        viewBox="0 0 24 24"
+                    >
+                        <path d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                </button>
+            </form>
+
+            <div class="divider" style="margin: 24px 0"></div>
+
+            <div
+                style="
+                    background: var(--amber-dim);
+                    border: 1px solid var(--amber-glow);
+                    border-radius: var(--radius-sm);
+                    padding: 14px 16px;
+                "
+            >
+                <div
+                    style="
+                        font-size: 0.78rem;
+                        font-weight: 700;
+                        color: var(--amber);
+                        text-transform: uppercase;
+                        letter-spacing: 0.06em;
+                        margin-bottom: 6px;
+                    "
+                >
+                    Dev Note
+                </div>
+                <p
+                    style="
+                        font-size: 0.825rem;
+                        color: var(--text-2);
+                        line-height: 1.5;
+                        margin: 0;
+                    "
+                >
+                    Authentication is on the roadmap. This form is a UI
+                    placeholder — login logic will be added in Q1 2026 with
+                    Flask-Login.
+                </p>
+            </div>
+        </div>
+
+        <p
+            style="
+                text-align: center;
+                color: var(--text-3);
+                font-size: 0.825rem;
+                margin-top: 24px;
+            "
+            class="animate-fade-up-2"
+        >
+            Not ready to sign in?
+            <a
+                href="{{ url_for('pages.landing') }}"
+                style="
+                    color: var(--amber);
+                    text-decoration: none;
+                    font-weight: 500;
+                "
+                >Go back home</a
+            >
+        </p>
     </div>
-
-    <div class="form-group">
-      <label class="form-label">Password</label>
-      <input type="password" name="password" placeholder="Enter your password" required>
-    </div>
-
-    <button type="submit" class="btn primary" style="width: 100%; margin-top: 8px;">
-      Sign In
-    </button>
-  </form>
-
-  <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: 24px;">
-    Don't have an account? <a href="{{ url_for('landing') }}" style="color: var(--primary); text-decoration: none;">Go back home</a>
-  </p>
 </div>
 {% endblock %}
