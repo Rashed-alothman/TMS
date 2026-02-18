@@ -1,47 +1,125 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block title %}Invite Team — Task Master{% endblock
+%} {% block content %}
+<div
+    style="
+        min-height: calc(100vh - 64px - 73px);
+        display: grid;
+        place-items: center;
+        padding: 40px 24px;
+    "
+>
+    <div style="width: 100%; max-width: 480px">
+        <div style="margin-bottom: 28px" class="animate-fade-up">
+            <div class="hero-tag" style="margin-bottom: 16px">Team</div>
+            <h1
+                style="
+                    font-family: var(--font-display);
+                    font-size: 1.8rem;
+                    font-weight: 800;
+                    letter-spacing: -0.03em;
+                    color: var(--text);
+                    margin-bottom: 6px;
+                "
+            >
+                Invite a member
+            </h1>
+            <p
+                style="
+                    color: var(--text-2);
+                    font-size: 0.9rem;
+                    font-weight: 300;
+                "
+            >
+                Add someone to your task board.
+            </p>
+        </div>
 
-{% block title %}Add Users{% endblock %}
+        <div class="card animate-fade-up-1" style="padding: 32px">
+            <form
+                method="POST"
+                action="{{ url_for('pages.add_users') }}"
+                class="form-group"
+            >
+                <div class="form-field">
+                    <label class="form-label">Full Name</label>
+                    <input
+                        name="fullname"
+                        type="text"
+                        placeholder="John Doe"
+                        required
+                    />
+                </div>
 
-{% block content %}
-<section class="card" style="max-width: 500px; margin: 0 auto;">
-  <header class="card-head">
-    <h1 class="title">Invite Team</h1>
-    <p class="subtitle">Add a new member to your task board.</p>
-  </header>
+                <div class="form-field">
+                    <label class="form-label">Email Address</label>
+                    <input
+                        name="email"
+                        type="email"
+                        placeholder="john@example.com"
+                        required
+                    />
+                </div>
 
-  <form method="POST" action="{{ url_for('add_users') }}" class="form-group">
-    
-    <div>
-      <label style="font-size: 12px; color: var(--text-muted); margin-bottom: 6px; display:block;">FULL NAME</label>
-      <input name="fullname" type="text" placeholder="John Doe" required>
+                <div class="form-field">
+                    <label class="form-label">Access Level</label>
+                    <select name="role">
+                        <option value="member">Team Member</option>
+                        <option value="admin">Administrator</option>
+                        <option value="viewer">Viewer (Read Only)</option>
+                    </select>
+                </div>
+
+                <div style="display: flex; gap: 10px; margin-top: 8px">
+                    <button
+                        class="btn btn-primary"
+                        type="submit"
+                        style="flex: 1"
+                    >
+                        Send Invitation
+                    </button>
+                    <a
+                        class="btn btn-ghost"
+                        href="{{ url_for('pages.homepage') }}"
+                        >Cancel</a
+                    >
+                </div>
+            </form>
+
+            <div class="divider" style="margin: 24px 0"></div>
+
+            <div
+                style="
+                    background: var(--amber-dim);
+                    border: 1px solid var(--amber-glow);
+                    border-radius: var(--radius-sm);
+                    padding: 14px 16px;
+                "
+            >
+                <div
+                    style="
+                        font-size: 0.78rem;
+                        font-weight: 700;
+                        color: var(--amber);
+                        text-transform: uppercase;
+                        letter-spacing: 0.06em;
+                        margin-bottom: 6px;
+                    "
+                >
+                    Dev Note
+                </div>
+                <p
+                    style="
+                        font-size: 0.825rem;
+                        color: var(--text-2);
+                        line-height: 1.5;
+                        margin: 0;
+                    "
+                >
+                    Multi-user support is planned for Q2 2026. This form will be
+                    wired to a real invitation system once auth is in place.
+                </p>
+            </div>
+        </div>
     </div>
-
-    <div>
-      <label style="font-size: 12px; color: var(--text-muted); margin-bottom: 6px; display:block;">EMAIL ADDRESS</label>
-      <input name="email" type="email" placeholder="john@example.com" required>
-    </div>
-
-    <div>
-      <label style="font-size: 12px; color: var(--text-muted); margin-bottom: 6px; display:block;">ACCESS LEVEL</label>
-      <select name="role" style="background-color: #1e293b;"> <option value="member">Team Member</option>
-        <option value="admin">Administrator</option>
-        <option value="viewer">Viewer (Read Only)</option>
-      </select>
-    </div>
-
-    <div style="margin-top: 20px; display: flex; gap: 12px;">
-      <button class="btn primary" type="submit" style="flex: 1;">Send Invitation</button>
-      <a class="btn danger" href="{{ url_for('homepage') }}">Cancel</a>
-    </div>
-
-  </form>
-
-  <div style="margin-top: 24px; padding: 16px; background: rgba(99, 102, 241, 0.1); border-radius: 8px; border: 1px solid rgba(99, 102, 241, 0.2);">
-    <h3 style="margin: 0 0 8px; font-size: 0.9rem; color: #a5b4fc;">Dev Note</h3>
-    <p style="margin: 0; font-size: 0.8rem; color: var(--text-muted);">
-      This form POSTs data to your Flask backend. Check your terminal output to see the printed user details when you click "Send".
-    </p>
-  </div>
-
-</section>
+</div>
 {% endblock %}
